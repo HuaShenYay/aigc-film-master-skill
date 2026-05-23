@@ -1,0 +1,95 @@
+name: Skill CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Markdown links
+        run: |
+          # 检查所有 .md 文件中的 URL 是否指向有效域名（格式检查）
+          echo "=== Markdown 文件 URL 检查 ==="
+          grep -rohE 'https?://[^)]+' --include="*.md" . \
+            | sed 's|[/?#].*||' \
+            | sort -u \
+            | while read url; do
+                status=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "$url" 2>/dev/null || echo "000")
+                if [ "$status" = "000" ]; then
+                  echo "⚠️  无法访问: $url"
+                elif [ "$status" -ge 400 ]; then
+                  echo "❌ $status: $url"
+                else
+                  echo "✅ $status: $url"
+                fi
+              done
+
+      - name: Markdown lint
+        run: |
+          # 基本格式检查
+          echo "=== Markdown 基本格式检查 ==="
+          for f in $(find . -name "*.md" -not -path "./.git/*"); do
+            echo "检查: $f"
+            # 检查末尾空行
+            tail -c1 "$f" | read -r _ && echo "  ✅ 有末尾空行: $f" || echo "  ⚠️  缺少末尾空行: $f"
+          done
+
+      - name: SKILL.md structure check
+        run: |
+          echo "=== SKILL.md 结构检查 ==="
+          if [ -f "SKILL.md" ]; then
+            for section in "心智模型" "Playbook" "工具" "工作流" "行业表达" "质量基准"; do
+              if grep -q "$section" SKILL.md; then
+                echo "✅ 包含: $section"
+              else
+                echo "⚠️ 缺少: $section"
+              fi
+            done
+          else
+            echo "❌ SKILL.md 不存在"
+          fi
+
+      - name: No broken internal links
+        run: |
+          echo "=== 内部链接检查 ==="
+          # 检查相对链接指向的文件是否存在
+          grep -rohE '\]\(\.\./[^)]+\)' --include="*.md" . \
+            | sed 's/\](\.\.\///' | sed 's/)//' \
+            | sort -u \
+            | while read path; do
+                if [ -f "$path" ]; then
+                  echo "✅ 存在: $path"
+                elif [ -d "$path" ]; then
+                  echo "✅ 存在(目录): $path"
+                else
+                  echo "⚠️  可能无效: $path"
+                fi
+              done
+
+  changelog-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check CHANGELOG exists
+        run: |
+          if [ -f "CHANGELOG.md" ]; then
+            echo "✅ CHANGELOG.md 存在"
+            echo "最新版本: $(head -3 CHANGELOG.md | grep -E '^\[')"
+          else
+            echo "❌ CHANGELOG.md 缺失"
+            exit 1
+          fi
+
+      - name: Check meta.json version
+        run: |
+          if [ -f "meta.json" ]; then
+            echo "✅ meta.json 存在"
+            cat meta.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'行业: {d.get(\"industry\",\"N/A\")}'); print(f'状态: {d.get(\"status\",\"N/A\")}')"
+          fi

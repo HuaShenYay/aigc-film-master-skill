@@ -1,0 +1,27 @@
+# 标准化 .gitattributes
+
+## 文本文件
+*.md      text eol=lf
+*.json    text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.txt     text eol=lf
+*.csv     text eol=lf
+
+## 二进制文件
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.pdf  binary
+*.zip  binary
+*.mp4  binary
+*.mp3  binary
+
+## GitHub 语言统计
+# 不要把文档和配置算成代码（让语言统计更准确）
+docs/**   linguist-documentation
+*.md     linguist-documentation
+
+# 生产文件
+SKILL.md  linguist-generated=false
