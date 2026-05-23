@@ -1,0 +1,12 @@
+# Master-skill template dirs (not part of the skill)
+cli/
+scripts/
+sub-skills/
+
+# macOS
+.DS_Store
+
+# Temp files
+*.tmp
+*.log
+*.swp

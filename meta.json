@@ -1,0 +1,38 @@
+{
+  "industry": "AIGC 影视制作",
+  "sub_field": "创意导演 (Creative Director)",
+  "locale": "zh-CN-primary, global-secondary",
+  "profile": "practitioner",
+  "focus": "creative-direction",
+  "mode": "new",
+  "created_at": "2026-05-23T13:18:00+08:00",
+  "last_research_date": "2026-05-23",
+  "last_updated": "2026-05-23T14:05:00+08:00",
+  "phase": "4-verified",
+  "status": "ready",
+  "quality_checked": true,
+  "source_count": 102,
+  "source_ratio": {
+    "figures": 13,
+    "tools": 18,
+    "workflows": 1,
+    "canon": 27,
+    "sources": 22,
+    "glossary": 21
+  },
+  "skill_file_size": "10KB",
+  "research_files": [
+    "01-figures.md",
+    "02-tools.md",
+    "03-workflows.md",
+    "04-canon.md",
+    "05-sources.md",
+    "06-glossary.md",
+    "synthesis.md"
+  ],
+  "prototypes": [
+    "brand-ad-60s.md",
+    "boundary-cases.md"
+  ],
+  "notes": "Phase 4 完成。SKILL.md 已自检并修复 3 处问题（allowed-tools/tacit typo/诚实原则）。边界案例 6 个已写入 prototypes/boundary-cases.md。URL 可访问性检查因沙箱网络限制未能完成，建议用户手动抽查 arxiv 论文链接和工具官网。"
+}
