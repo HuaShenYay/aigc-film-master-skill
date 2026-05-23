@@ -169,6 +169,33 @@ Phase 4: 交付（5% 工时）
   质量检查 → 多版本导出 → AI 标注（按平台要求）
 ```
 
+### 2.4.1 类型片差异化 SOP
+
+不同类型有不同的创作逻辑。按类型加载对应 playbook：
+
+| 类型 | Playbook 文件 | 核心差异 |
+|------|--------------|----------|
+| 悬疑/惊悚/反转 | `references/genre-playbooks/suspense-thriller.md` | 信息压力 > 情绪释放，单线索重复 > 多线并进 |
+| 广告/TVC/品牌片 | `references/genre-playbooks/commercial-tvc.md` | 传播主张 > 画面美感，CTA 必须后期叠加 |
+| 竖屏短剧/AI真人剧 | `references/genre-playbooks/short-drama.md` | 冲突密度高，每15秒至少一个反转或钩子 |
+| 黑色幽默/讽刺 | `references/genre-playbooks/black-humor.md` | 面无表情表演，重复逻辑比夸张更有效 |
+| 文旅/城市形象 | `references/genre-playbooks/cultural-tourism.md` | 地点即主角，人的尺度防止明信片空洞 |
+
+### 2.4.2 AIGC 导演可行性判断
+
+每个镜头/段落生成前，先用以下标签判断可行性：
+
+| 标签 | 含义 | 动作 |
+|------|------|------|
+| `DIRECT_GENERATABLE` | 单动作、少角色、空间清晰 | 可直接生成 |
+| `ASSET_REQUIRED` | 身份/道具/场景必须先锁定 | 先建资产板 |
+| `BOARD_REQUIRED` | 镜头/blocking/动作必须先画出来 | 先建故事板 |
+| `POST_REQUIRED` | 精确文字/UI/VFX/音频更适合后期 | 加入后期职责 |
+| `SPLIT_REQUIRED` | 内容超出 15 秒段落容量 | 拆分成更小段落 |
+| `AVOID` | 不稳定或不值得直接生成 | 重新设计节拍 |
+
+详见：`references/aigc-director-system.md`
+
 ### 近期变化（2025-2026，影响工作流设计）
 
 1. 端到端生成质量提升 → 「文→图→视频」多步流程必要性下降

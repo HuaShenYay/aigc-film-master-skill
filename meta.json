@@ -28,11 +28,20 @@
     "04-canon.md",
     "05-sources.md",
     "06-glossary.md",
-    "synthesis.md"
+    "synthesis.md",
+    "aigc-director-system.md",
+    "qa-risk-gates.md"
   ],
   "prototypes": [
     "brand-ad-60s.md",
     "boundary-cases.md"
   ],
-  "notes": "Phase 4 完成。SKILL.md 已自检并修复 3 处问题（allowed-tools/tacit typo/诚实原则）。边界案例 6 个已写入 prototypes/boundary-cases.md。URL 可访问性检查因沙箱网络限制未能完成，建议用户手动抽查 arxiv 论文链接和工具官网。"
+  "genre_playbooks": [
+    "suspense-thriller.md",
+    "commercial-tvc.md",
+    "short-drama.md",
+    "black-humor.md",
+    "cultural-tourism.md"
+  ],
+  "notes": "Phase 4 完成（来源抽查待补）。Phase 5 升级完成：新增 5 个类型片 Playbook（悬疑/广告/短剧/黑色幽默/文旅）+ AIGC 导演可行性 6 级标签 + QA 10 重门禁。对比竞品 repo wp746/aigc-film-production-master 后的优化版。"
 }
